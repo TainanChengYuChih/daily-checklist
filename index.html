@@ -1,31 +1,66 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>每日任務卡</title>
-    <style>
-        body { font-family: "Helvetica Neue", sans-serif; background-color: #fff0f5; padding: 2em; }
-        .card { background: white; padding: 2em; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        h1, h2 { color: #d63384; }
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 0.5em; }
-        input[type="checkbox"] { transform: scale(1.3); margin-right: 0.5em; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>每日任務卡</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #d63384;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #f8d7da;
+    }
+    ul {
+      list-style-type: "☑️ ";
+      padding-left: 1em;
+    }
+    .task-item {
+      list-style-type: "🔲 ";
+      margin-left: 1em;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <h1>🎀 每日任務卡</h1>
-        <p>📅 距離學測倒數：還有 <strong>200</strong> 天</p>
-        <h2>🎯 今日任務</h2>
-        <ul>
-            <li><input type="checkbox"> 文法：that 可省略（圖解＋練習）</li>
-            <li><input type="checkbox"> 單字：spectacle, constrain, haul, soothe, terminal</li>
-            <li><input type="checkbox"> 聽力：VoiceTube 抄寫 1 句英文＋翻譯</li>
-            <li><input type="checkbox"> 靜坐＋誦《楞嚴咒》3 遍</li>
-            <li><input type="checkbox"> 抄寫激勵語：「只要今天有前進一點，我就是值得驕傲的自己」</li>
-            <li><input type="checkbox"> 拖地</li>
-        </ul>
-    </div>
+  <h1>🎀 每日任務卡</h1>
+  <p>📅 距離學測倒數：還有 <strong>200 天</strong></p>
+
+  <div class="section">
+    <h2>🎯 今日任務</h2>
+    <ul>
+      <li class="task-item">文法：that 可省略（圖解＋練習）</li>
+      <li class="task-item">單字：spectacle, constrain, haul, soothe, terminal</li>
+      <li class="task-item">聽力：VoiceTube 抄寫 1 句英文＋翻譯</li>
+      <li class="task-item">靜坐＋誦《楞嚴咒》3 遍</li>
+      <li class="task-item">抄寫激勵語：「只要今天有前進一點，我就是值得驕傲的自己」</li>
+      <li class="task-item">拖地</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>🌟 理想人格卡</h2>
+    <p>成熟穩重、不受慾望支配、自我覺察力強。每日修行持咒，堅持到底的學測勇士。</p>
+  </div>
+
+  <div class="section">
+    <h2>🔒 我正在戒色中</h2>
+    <p>「我的慾望是修行的火種，我正在將它轉化為光明與清明。」</p>
+  </div>
+
+  <div class="section">
+    <h2>🧡 每日一句鼓勵話</h2>
+    <p><em>「別害怕慢，只要你不停止。」</em></p>
+  </div>
 </body>
 </html>
