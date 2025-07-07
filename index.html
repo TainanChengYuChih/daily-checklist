@@ -1,73 +1,89 @@
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <title>🎀 每日任務卡</title>
-    <style>
-        body {
-            font-family: "Segoe UI", "微軟正黑體", sans-serif;
-            background-color: #fff0f5;
-            color: #333;
-            padding: 30px;
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.8;
-        }
-        h1 {
-            color: #d45a7a;
-            font-size: 28px;
-        }
-        .section {
-            background: #fff;
-            border: 2px dashed #f2a6c0;
-            padding: 20px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-        }
-        input[type="checkbox"] {
-            transform: scale(1.5);
-            margin-right: 10px;
-        }
-        .quote {
-            font-style: italic;
-            color: #a0522d;
-            background: #fffaf0;
-            padding: 10px;
-            border-left: 4px solid #ffb6c1;
-            margin-top: 10px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎀 每日任務卡</title>
+  <style>
+    body { font-family: "Arial", sans-serif; background: #ffeef3; color: #333; margin: 0; padding: 20px; }
+    .container { max-width: 720px; margin: auto; background: white; padding: 20px; border-radius: 12px; border: 2px dashed pink; }
+    h1 { color: #d63384; font-size: 24px; }
+    h2 { font-size: 20px; margin-top: 1.5em; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    input[type="checkbox"] { transform: scale(1.4); margin-right: 10px; }
+    .section { margin-top: 30px; padding: 10px; background: #fff0f5; border-radius: 10px; }
+  </style>
 </head>
 <body>
+  <div class="container">
     <h1>🎀 每日任務卡</h1>
+    <div>📅 距離學測倒數：<strong id="days-left">載入中...</strong></div>
 
     <div class="section">
-        <strong>📌 距離學測倒數：</strong> 還有 <strong>200 天</strong>
+      <h2>🎯 今日任務</h2>
+      <ul id="taskList"></ul>
     </div>
 
     <div class="section">
-        <strong>🎯 今日任務</strong><br>
-        <label><input type="checkbox"> 文法：that 可省略（圖解+練習）</label><br>
-        <label><input type="checkbox"> 單字：spectacle, constrain, haul, soothe, terminal</label><br>
-        <label><input type="checkbox"> 聽力：VoiceTube 抄寫 1 句英文＋翻譯</label><br>
-        <label><input type="checkbox"> 靜坐 + 誦《楞嚴咒》3 遍</label><br>
-        <label><input type="checkbox"> 抄寫激勵語錄：「只要今天有前進一點，我就是值得驕傲的自己」</label>
+      <h2>🌟 理想人格卡</h2>
+      <p>成熟穩重、不受慾望支配、自我覺察力強。每日修行持咒，堅持到底的學測勇士。</p>
     </div>
 
     <div class="section">
-        <strong>🌟 理想人格卡</strong><br>
-        成熟穩重、不受慾望支配、自我覺察力強、每日修行持咒、堅持到底的學測勇士。
+      <h2>🔒 我正在戒色中</h2>
+      <p>「我的慾望是修行的火種，我正在將它轉化為光明與清明。」</p>
     </div>
 
     <div class="section">
-        <strong>🔒 我正在戒色中</strong><br>
-        「我的慾望是修行的火種，我正在將它轉化為光明與清明。」
+      <h2>🧡 每日一句鼓勵話</h2>
+      <p><em>「別害怕慢，只要你不停止。」</em></p>
     </div>
+  </div>
 
-    <div class="section">
-        <strong>🧡 每日一句鼓勵話</strong><br>
-        <div class="quote">「別害怕慢，只要你不停止。」</div>
-    </div>
+  <script>
+    const taskList = document.getElementById("taskList");
+
+    // 倒數學測天數
+    const today = new Date();
+    const exam = new Date("2026-01-23");
+    const diff = Math.ceil((exam - today) / (1000 * 60 * 60 * 24));
+    document.getElementById("days-left").innerText = `還有 ${diff} 天`;
+
+    // 產生今日任務
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const todayTasks = [
+      "文法：that 可省略（圖解＋練習）",
+      "單字：spectacle, constrain, haul, soothe, terminal",
+      "聽力：VoiceTube 抄寫 1 句英文＋翻譯",
+      "靜坐＋誦《楞嚴咒》3 遍",
+      "抄寫激勵語錄：「只要今天有前進一點，我就是值得驕傲的自己」"
+    ];
+
+    // 儲存打勾狀態
+    function saveStatus() {
+      const states = Array.from(document.querySelectorAll("input[type=checkbox]")).map(cb => cb.checked);
+      localStorage.setItem("tasks-" + todayKey, JSON.stringify(states));
+    }
+
+    // 載入記憶
+    const saved = JSON.parse(localStorage.getItem("tasks-" + todayKey) || "[]");
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("tasks-") && key !== "tasks-" + todayKey) {
+        localStorage.removeItem(key);
+      }
+    });
+
+    todayTasks.forEach((task, i) => {
+      const li = document.createElement("li");
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = saved[i] || false;
+      checkbox.addEventListener("change", saveStatus);
+      li.appendChild(checkbox);
+      li.appendChild(document.createTextNode(task));
+      taskList.appendChild(li);
+    });
+  </script>
 </body>
 </html>
